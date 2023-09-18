@@ -9,6 +9,7 @@ Newarr = arr.filter(function(value){
     return Newarr.includes(value) ? '' : Newarr.push(value)
 })
 console.log(Newarr)
+// /aaaa
 
 
 
