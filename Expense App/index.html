@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Nội dung trang web của bạn -->
+<div class="body">
+    <div class="container ">
+        <div style="width: 100%; height: 30px;" class="fix"></div>
+        <div class="add">
+            <button class="add-expense" >Add new Expense</button>
+        </div>
+        <div class="input-expense">
+            <div class="input-expense-item">
+                <span style="color: #fff;padding-top: 2px;" >Name</span>
+                <input style="width: 65%;" type="text" class="input-item" placeholder="Enter name here...">
+            </div>
+            <div class="input-expense-item">
+                <span style="color: #fff;padding-top: 2px;" >Amount</span>
+                <input style="width: 65%;" type="text" class="input-item" placeholder="Enter amount here...">
+            </div>
+            <div class="input-expense-item">
+                <span style="color: #fff;padding-top: 2px;" >Date</span>
+                <input style="width: 65%;" type="text" class="input-item" placeholder="dd/mm/yy">
+            </div>
+            <div class="btn-input">
+                <button style="margin-right: 24px; margin-bottom: 12px;" type="button" class="btn-expense">Add</button>
+                <button style="border: 1px solid #000;margin-right: 24px; margin-bottom: 12px; " type="button" class="btn btn-secondary">Cancel</button>            
+            </div>
+        </div>
+        <div class="product">
+            <div class="product-filter">
+                <span style="color: #fff;margin: 12px 24px;" >Filter by year</span>
+                <select style="margin: 12px 24px;">
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                    <option>2020</option>
+                  </select>
+            </div>
+            <div class="product-chart">
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column bar-column-Jan"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jan</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Feb</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Mar</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Apr</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column bar-column-may"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">May</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jun</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jul</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Aug</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Sep</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Oct</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Nov</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column bar-column-october"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jan</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jan</div>         
+                </div>
+                <div class="bar">
+                    <div style="width: 100%; height: 6px;" class="fix"></div>
+                    <div class="bar-column"></div>
+                    <div style="color: #000; margin-left: 5px;" class="bar-month">Jan</div>         
+                </div>
+            </div>
+            <!-- product-list  -->
+            <div class="product-list">
+                <div class="product-list-item">
+                    <div class="product-list-item-daymonyear">
+                        <p>January</p>
+                        <p>2022</p>
+                        <p style="font-weight: 800; font-size: 20px;">16</p>
+                    </div>
+                <span class="product-list-item-name">SomeBook</span>
+                </div>
+                <div style="font-size: 20px;" class="product-list-price product-list-item-name">
+                <button style="border: 1px solid #fff;" class="btn-expense">$50</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
