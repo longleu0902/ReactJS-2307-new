@@ -244,3 +244,15 @@ justify-content: space-around;
   border-radius: 2px;
 
 }
+.btn-amout{
+  border: 1px solid #ccc;
+  margin: 0 4px;
+  border-radius: 3px;
+
+}
+.btn-amout:hover{
+  background-color: #fff;
+}
+.amout{
+  margin: 0 24px;
+}

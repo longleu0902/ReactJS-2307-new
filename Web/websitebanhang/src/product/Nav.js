@@ -27,7 +27,7 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut }) {
             </div>
             <div style={{height:"370px",overflowY:'scroll'}}>
             {CartList.map((product) => (
-              <li>
+              <li onClick={hanldeShowCart} >
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <button
                     style={{
@@ -56,7 +56,7 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut }) {
                       }}
                     ></div>
                     <span style={{ width: "300px",marginBottom:"26px",fontSize:"15px" }}>{product.title}</span>
-                    <span style={{ color: "#eb6e6e" }}>{product.price}</span>
+                    <span style={{ color: "#eb6e6e" }}>{product.price},000đ</span>
                   </div>
                 </a>
                 <hr style={{ borderStyle: "dashed ", margin: '6px 0px' }}></hr>

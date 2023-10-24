@@ -73,7 +73,7 @@ function CartProduct({ List,HandleAddProduct}) {
                                             cursor : "pointer",
                                         }}onClick={()=>handleRedirectPage(product.id)}
                                         >{product.title}</h5>
-                                        <span style={{ color: "#eb6e6e" }}>{product.price}VNĐ</span>
+                                        <span style={{ color: "#eb6e6e" }}>{product.price},000đ</span>
                                     </div>
                                     <div className="product-buy">
                                         <button 
