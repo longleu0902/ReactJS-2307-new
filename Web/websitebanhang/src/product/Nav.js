@@ -1,6 +1,6 @@
 import react from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate } from 'react-router-dom';
-function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut }) {
+function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut,numberWithCommas }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
   console.log(CartList)
@@ -56,7 +56,7 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut }) {
                       }}
                     ></div>
                     <span style={{ width: "300px",marginBottom:"26px",fontSize:"15px" }}>{product.title}</span>
-                    <span style={{ color: "#eb6e6e" }}>{product.price},000đ</span>
+                    <span style={{ color: "#eb6e6e" }}>{numberWithCommas(product.price)}đ</span>
                   </div>
                 </a>
                 <hr style={{ borderStyle: "dashed ", margin: '6px 0px' }}></hr>

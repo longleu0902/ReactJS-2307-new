@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { Container } from 'reactstrap';
-function ShoppingCart({ Cart, setCart,removeProduct }) {
+function ShoppingCart({ Cart, setCart,removeProduct,numberWithCommas }) {
     const CartList = [...Cart];
     const [TongTien, setTongTien] = useState(0);
     const thaydoisoluong = (sanpham,sl) => {
@@ -19,6 +19,9 @@ function ShoppingCart({ Cart, setCart,removeProduct }) {
             return a + b.price*b.amount
         }, 0)
         setTongTien(tong)
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     useEffect(() => {
         tinhtongtien();
@@ -83,7 +86,7 @@ function ShoppingCart({ Cart, setCart,removeProduct }) {
                             </div>
                             <div className="shopping-list-item-information">
                                 <h3>{product.title}</h3>
-                                <span style={{ color: "#eb6e6e" }}>{product.price},000đ</span>
+                                <span style={{ color: "#eb6e6e" }}>{numberWithCommas(product.price)}đ</span>
                                 <div className="dropdown-cart">
                                     <Space direction="vertical">
                                         <Dropdown.Button
@@ -130,7 +133,7 @@ function ShoppingCart({ Cart, setCart,removeProduct }) {
                             <span>Phí giao hàng</span>
                         </div>
                         <div className="shoppingcart-list-pay-item">
-                            <span>{TongTien},000đ</span>
+                            <span>{numberWithCommas(TongTien)}đ</span>
                             <span>0</span>
                             <span>Miễn phí</span>
                         </div>
@@ -141,7 +144,7 @@ function ShoppingCart({ Cart, setCart,removeProduct }) {
                             <span>Tổng</span>
                         </div>
                         <div className="shoppingcart-list-pay-item">
-                            <span>{TongTien},000đ</span>
+                            <span>{numberWithCommas(TongTien)}đ</span>
                         </div>
                     </div>
                     <div

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import { Container } from 'reactstrap'
 import { Navigate, useNavigate } from 'react-router-dom';
-function CartProduct({ List,HandleAddProduct}) {
+function CartProduct({ List,HandleAddProduct,numberWithCommas}) {
     const navigate = useNavigate();
     const handleRedirectPage = (idProduct,type = 'product') => {
         navigate(`/${type}/${idProduct}`);
@@ -73,7 +73,7 @@ function CartProduct({ List,HandleAddProduct}) {
                                             cursor : "pointer",
                                         }}onClick={()=>handleRedirectPage(product.id)}
                                         >{product.title}</h5>
-                                        <span style={{ color: "#eb6e6e" }}>{product.price},000đ</span>
+                                        <span style={{ color: "#eb6e6e" }}>{numberWithCommas(product.price)}đ</span>
                                     </div>
                                     <div className="product-buy">
                                         <button 
