@@ -1,5 +1,5 @@
 .CTN{
-  margin: 0px 60px;
+  margin: 0px 30px;
 }
 .Nav{
   width: 100%;
@@ -33,6 +33,7 @@ justify-content: space-around;
    color: #fff;
    position: relative;
    line-height: 30px;
+   
 
 }
 .cart-item{
@@ -45,14 +46,18 @@ justify-content: space-around;
   border: 1px solid #000;
   border-radius: 5px;
   width: 500px;
+  z-index: 1;
+  overflow-y: scroll;
+  height: 500px;
+  justify-content: space-between;
 }
 .cart-item li{
   text-decoration: none;
   list-style-type: none;
-  padding: 6px 12px;
 }
 .cart-item li a{
   color: #000;
+  display: flex;
 
   
 }
@@ -61,13 +66,18 @@ justify-content: space-around;
   height: 25%;
   display: flex;
   align-items: center;
+  justify-content:space-between ;
 }
 .cart-list span{
   font-size: 15px;
-  margin: 6px 12px;
-  font-style: italic;
-  font-family: "Arial", sans-serif; /* Sử dụng font có hỗ trợ kiểu nghiêng */
+  margin: 6px 6px;
+  font-style: normal;
+  font-family: "Arial", sans-serif;
   font-size: 18px;
+  font-weight: 300;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+  overflow: hidden;
 }
 .cart:hover .cart-item{
   display: block;
@@ -78,7 +88,11 @@ justify-content: space-around;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(0,#000 , #999);
+  /* background-image: linear-gradient(0,#000 , #999); */
+  background-image: url('https://dony.vn/wp-content/uploads/2021/08/mau-thiet-ke-shop-quan-ao-nho-5.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .product{
   display: flex;
@@ -92,14 +106,13 @@ justify-content: space-around;
 }
 .product-img{
   width: 100%;
-  /* height: 50%; */
+  height: 250px;
   background-size: cover;
 
 }
 .product-name_price {
   margin-top: 12px;
   margin-left: 6px;
-
 
 }
 .product-buy{
@@ -110,11 +123,11 @@ justify-content: space-around;
 .category{
   display: flex;
   flex-direction: column;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   /* width: 200px; */
   margin-top: 24px;
   border-radius: 3px;
-  background-color: #f4efef;
+  /* background-color: #f4efef; */
 
 }
 .category-link{
@@ -127,4 +140,107 @@ justify-content: space-around;
   text-decoration:none;
   color: #ede1e1;
   
+}
+.Soluong{
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  right: -21px;
+  top: -16px;
+  border: 1px solid rgb(236, 59, 59);
+  background-color: rgb(234, 123, 123);
+  border-radius: 50%;
+  padding: 0px 10px;
+}
+.shoppingcart {
+  background-color: #f7f7f7;
+  
+}
+
+.shoppingcart-title {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.shoppingcart-list {
+  display: flex;
+
+}
+
+.shoppingcart-list-item {
+  display: flex;
+  background-color: #fff;
+  margin-bottom: 12px;
+}
+
+.shoppingcart-list-item-img {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 12px 12px;
+  width: 20%;
+}
+
+.shopping-list-item-information {
+  width: 70%;
+  margin: 24px 12px;
+}
+
+.shopping-list-item-remove {
+  width: 10%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdown-cart {
+  display: flex;
+  margin: 24px 0px;
+}
+
+.Pay {
+  width: 30%;
+  margin: 12px 24px;
+  height: 400px;
+  background-color: #fff;
+
+}
+
+.shoppingcart-list-pay {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.shoppingcart-list-pay-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.shoppingcart-list-pay-item span {
+  padding: 12px 24px;
+}
+
+.btn-pay {
+  width: 100%;
+  border: 1px solid #000;
+  color: #fff;
+  background-color: #000;
+  margin: 0px 24px;
+  border-radius: 5px;
+
+
+}
+.btn-pay:hover{
+  background-color: #ccc;
+  outline: none;
+}
+.shoppongcart-list-all{
+  width: 70%;
+  margin: 12px 24px;
+  border-radius: 2px;
+
 }
