@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import { Container } from 'reactstrap'
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Button, message } from 'antd';
 function CartProduct({ List,HandleAddProduct,numberWithCommas}) {
     const navigate = useNavigate();
     const handleRedirectPage = (idProduct,type = 'product') => {
         navigate(`/${type}/${idProduct}`);
     }
-
     return (
         <div className="CTN">
             <Row>
@@ -58,7 +58,8 @@ function CartProduct({ List,HandleAddProduct,numberWithCommas}) {
                                 style={{ padding: '8px' }}
                                 key = {product.id}
                             >
-                                <div className="product">
+                                <div onDoubleClick={()=>handleRedirectPage(product.id)} className="product">
+                                    {/* <div > */}
                                     <img
                                         className="product-img"
                                         src={product.img}
@@ -71,10 +72,11 @@ function CartProduct({ List,HandleAddProduct,numberWithCommas}) {
                                             overflow: "hidden", 
                                             textOverflow: "ellipsis",
                                             cursor : "pointer",
-                                        }}onClick={()=>handleRedirectPage(product.id)}
+                                        }}
                                         >{product.title}</h5>
                                         <span style={{ color: "#eb6e6e" }}>{numberWithCommas(product.price)}đ</span>
                                     </div>
+                                    {/* </div> */}
                                     <div className="product-buy">
                                         <button 
                                         onClick={()=>HandleAddProduct(product)} 

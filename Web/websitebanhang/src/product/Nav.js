@@ -1,5 +1,6 @@
 import react from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate } from 'react-router-dom';
+import { Empty } from 'antd';
 function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut,numberWithCommas }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
@@ -26,8 +27,9 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut,numberW
               <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
             </div>
             <div style={{height:"370px",overflowY:'scroll'}}>
+            {CartList==''?( <Empty description={false}/>):''}
             {CartList.map((product) => (
-              <li onClick={hanldeShowCart} >
+              <li>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <button
                     style={{
@@ -43,7 +45,7 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut,numberW
                     X
                   </button>
                 </div>
-                <a href="#">
+                <a onClick={hanldeShowCart} href="#">
                   <div className="cart-list">
                     <div
                       className="cart-product-img"
@@ -64,10 +66,10 @@ function Nav({ Cart, setCart, soluong , removeProduct , removeAllProdcut,numberW
             ))}
             </div>
               <div style={{display: "flex", justifyContent: "space-between" }}>
-                <button onClick={hanldeShowCart} style={{color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #000', fontSize: '16px', margin: '12px 6px' }}>
+                <button onClick={hanldeShowCart} style={{color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px', margin: '12px 6px',backgroundColor:"#fff" }}>
                   Chi tiết giỏ hàng
                 </button>
-                <button onClick={removeAllProdcut} style={{color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #000', fontSize: '16px', margin: '12px 6px' }}>
+                <button onClick={removeAllProdcut} style={{color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px', margin: '12px 6px',backgroundColor:"#fff" }}>
                   Xoá tất cả
                 </button>
               </div>

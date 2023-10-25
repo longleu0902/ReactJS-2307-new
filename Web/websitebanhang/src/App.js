@@ -8,6 +8,7 @@ import ShowCartProduct from './product/ShowCartProduct';
 import ShoppingCart from './product/ShoppingCart';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, NavLink, BrowserRouter } from 'react-router-dom';
+import {  message } from 'antd';
 function App() {
   const [List, setList] = useState([
     {
@@ -23,42 +24,42 @@ function App() {
       title: 'Áo thiết kế sơ mi nữ',
       price: 200000,
       amount: 1,
-    }, 
-    { 
+    },
+    {
       id: 3,
       img: 'https://lh6.googleusercontent.com/xr1tWQ0zigU8mFvMGfMmW2oiX9yinGbn8LaRLMHnPXvsh7Bg1ABs2Tk8ZfAoQMv6mPw9Id-iaSB1zuU5UTJmCcnTybFvdiaC-EHxrdTbRmNJT22y1tmSb5rE1--xKXg3TrmwO2z3',
       title: 'Set quần áo nữ mùa thu',
       price: 400000,
       amount: 1,
     },
-    { 
+    {
       id: 4,
       img: 'https://ressmedia.com/wp-content/uploads/2021/07/LVN_5569-768x768.jpg',
       title: 'Quần áo trẻ em',
       price: 350000,
       amount: 1,
-    }, 
-    { 
+    },
+    {
       id: 5,
       img: 'https://xuconcept.com/wp-content/uploads/2020/12/xu-huong-chup-quan-ao.jpg',
       title: 'Set quần áo nam mặc đẹp ,màu trắng ,đầy đủ các loại size',
       price: 520000,
       amount: 1,
-    }, 
+    },
     {
       id: 6,
       img: 'https://thoitrangteenthienphuc.vn/upload/hinhthem/set-do-bo-the-thao-unisex-3-soc5-9859.jpg',
       title: 'Set đồ thể thao unisex',
       price: 200000,
       amount: 1,
-    }, 
+    },
     {
       id: 7,
       img: 'https://cf.shopee.vn/file/da9692b78e73e57c0ade2b3237074791',
       title: 'Quần Jean Nữ Ống Rộng - Quần Jean Nữ Suông',
       price: 129000,
       amount: 1,
-    }, 
+    },
     {
       id: 8,
       img: 'https://product.hstatic.net/1000321597/product/set-do-bo-the-thao-adidas1_e323ee2e1d7549e19770d809712a5c0b_grande.jpg',
@@ -69,12 +70,14 @@ function App() {
     }
   ]);
   const [Cart, setCart] = useState([])
+  const [messageApi, contextHolder] = message.useMessage();
   const HandleAddProduct = (product) => {
     if (Cart.indexOf(product) !== -1) return null;
     const arr = [...Cart];
     product.amout = 1;
     arr.push(product);
     setCart([...arr]);
+    messageApi.info('Đã thêm sản phẩm vào giỏ hàng');
     console.log(arr)
   }
   const removeProduct = (sanpham) => {
@@ -82,16 +85,18 @@ function App() {
     setCart([...arr])
   }
   const removeAllProdcut = () => {
-    const arr =''
+    const arr = ''
     setCart([...arr])
   }
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+  }
+
 
 
   return (
     <div className="App">
+      {contextHolder}
       <Footer />
       <BrowserRouter>
         <div>
@@ -101,8 +106,8 @@ function App() {
           </Routes>
           <Routes>
             <Route path="/trangchu" element={<CartProduct List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} />} />
-            <Route path='/product/:id'element={<ShowCartProduct/>} />
-            <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas}/>}/>
+            <Route path='/product/:id' element={<ShowCartProduct />} />
+            <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} />} />
           </Routes>
         </div>
       </BrowserRouter>

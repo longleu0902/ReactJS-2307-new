@@ -103,6 +103,11 @@ justify-content: space-around;
   justify-content: space-between;
   width: 100%;
   margin-top: 24px;
+  cursor: pointer;
+}
+.product:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 1px 2px 0 rgb(0,0,0,0.5);
 }
 .product-img{
   width: 100%;
@@ -198,7 +203,8 @@ justify-content: space-around;
 
 .dropdown-cart {
   display: flex;
-  margin: 24px 0px;
+  flex-direction: column;
+  
 }
 
 .Pay {
@@ -254,5 +260,17 @@ justify-content: space-around;
   background-color: #fff;
 }
 .amout{
-  margin: 0 24px;
+  margin: 12px 0px;
+}
+.size-item{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 12px 4px;
+}
+.size-item:hover{
+  background-color: #ccc;
+  outline: none;
+}
+.Size{
+  margin-top: 6px;
 }

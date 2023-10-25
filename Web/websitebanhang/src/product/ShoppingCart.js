@@ -4,6 +4,13 @@ import { Dropdown, Space } from 'antd';
 import { Container } from 'reactstrap';
 function ShoppingCart({ Cart, setCart,removeProduct,numberWithCommas }) {
     const CartList = [...Cart];
+    const [buttonColors, setButtonColors] = useState({ 
+        button1: 'white',
+        button2: 'white',
+        button3: 'white',
+        button4: 'white',
+
+    });
     const [TongTien, setTongTien] = useState(0);
     const thaydoisoluong = (sanpham,sl) => {
         const idx = CartList.indexOf(sanpham);
@@ -20,46 +27,17 @@ function ShoppingCart({ Cart, setCart,removeProduct,numberWithCommas }) {
         }, 0)
         setTongTien(tong)
     }
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    const handleButtonClick = (buttonId) => {
+        // Tạo một bản sao mới của trạng thái
+        const newButtonColors = { ...buttonColors };
+        // Thay đổi màu nền của nút được bấm
+        newButtonColors[buttonId] = '#ccc'
+        // Cập nhật trạng thái với màu nền mới
+        setButtonColors(newButtonColors);
+      };
     useEffect(() => {
         tinhtongtien();
     })
-    console.log(TongTien)
-    const items = [
-        {
-            label: 'S',
-            key: '1',
-        },
-        {
-            label: 'L',
-            key: '1',
-        },
-        {
-            label: 'XL',
-            key: '1',
-        },
-        {
-            label: 'XXl',
-            key: '1',
-        },
-    ];
-    const [loadings, setLoadings] = useState([]);
-    const enterLoading = (index) => {
-        setLoadings((state) => {
-            const newLoadings = [...state];
-            newLoadings[index] = true;
-            return newLoadings;
-        });
-        setTimeout(() => {
-            setLoadings((state) => {
-                const newLoadings = [...state];
-                newLoadings[index] = false;
-                return newLoadings;
-            });
-        }, 6000);
-    };
     return (
         <div className="shoppingcart">
             <div style={{ width: "100%", height: 50 }} />
@@ -67,7 +45,7 @@ function ShoppingCart({ Cart, setCart,removeProduct,numberWithCommas }) {
                 <h1
                     style={{
                         fontFamily: '"Your-Custom-Font", sans-serif',
-                        fontWeight: "bold"
+                        fontWeight: "bold",
                     }}
                 >
                     Giỏ hàng
@@ -85,25 +63,19 @@ function ShoppingCart({ Cart, setCart,removeProduct,numberWithCommas }) {
                                 />
                             </div>
                             <div className="shopping-list-item-information">
-                                <h3>{product.title}</h3>
-                                <span style={{ color: "#eb6e6e" }}>{numberWithCommas(product.price)}đ</span>
+                                <h4 style={{marginLeft:"2px"}}>{product.title}</h4>
+                                <span style={{ color: "#eb6e6e",marginLeft:"3px" }}>{numberWithCommas(product.price)}đ</span>
                                 <div className="dropdown-cart">
-                                    <Space direction="vertical">
-                                        <Dropdown.Button
-                                            icon={<DownOutlined />}
-                                            loading={loadings[1]}
-                                            menu={{
-                                                items,
-                                            }}
-                                            onClick={() => enterLoading(1)}
-                                        >
-                                            Size
-                                        </Dropdown.Button>
-                                    </Space>
+                                    <div className='Size'>
+                                        <button onClick={()=>handleButtonClick('button1')} style={{ backgroundColor: buttonColors.button1 }} className='size-item'>S</button>
+                                        <button onClick={()=>handleButtonClick('button2')} style={{ backgroundColor: buttonColors.button2 }} className='size-item'>L</button>
+                                        <button onClick={()=>handleButtonClick('button3')} style={{ backgroundColor: buttonColors.button3 }} className='size-item'>XL</button>
+                                        <button onClick={()=>handleButtonClick('button4')} style={{ backgroundColor: buttonColors.button4 }} className='size-item'>XXL</button>
+                                    </div>
                                     <div className="amout">
-                                        <button onClick={()=>thaydoisoluong(product,1)} className="btn-amout">+</button>
-                                        <input style={{ width: 30 }} type="text" value={product.amount} readOnly={true}/>
-                                        <button onClick={()=>thaydoisoluong(product,-1)} className="btn-amout">-</button>
+                                        <button style={{backgroundColor:'#fff'}} onClick={()=>thaydoisoluong(product,-1)} className="btn-amout">-</button>
+                                        <input style={{ width: 30 , border:'1px solid #ccc' }} type="text" value={product.amount} readOnly={true}/>
+                                        <button style={{backgroundColor:'#fff'}} onClick={()=>thaydoisoluong(product,1)} className="btn-amout">+</button>
                                     </div>
 
                                 </div>
