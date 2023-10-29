@@ -1,55 +1,23 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import { Container } from 'reactstrap'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate,useParams } from 'react-router-dom';
 import { Button, message, Empty } from 'antd';
-function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, handleClickSize }) {
+function CartProductFilter({ List, HandleAddProduct, numberWithCommas, size, setSize, handleClickSize }) {
     const navigate = useNavigate();
     const handleRedirectPage = (idProduct, type = 'product') => {
         navigate(`/${type}/${idProduct}`);
     }
+    const params = useParams();
+    console.log("param", params)
+    const samples = params.sample
+    const CartList = [...List];
+    const CartListFilter = CartList.filter((product)=> product.sample == samples)
+    // console.log(CartListFilter)
     return (
         <div className="CTN">
-            {/* <Row> */}
-            {/* <Col
-                    xl={4}
-                    style={{ padding: '8px' }}
-                >
-                    <div className="category">
-                        <h5 style={{ paddingLeft: '12px' }} >Danh mục sản phẩm</h5>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Tất cả sản phẩm
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo thun
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo sơ mi
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo Khoác
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo Hoodie,Áo Len
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Quần Dài,Quần Âu
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Set quần áo thể thao
-                        </a>
-                    </div>
-                </Col> */}
-            {/* <Col xl={24} > */}
             <Row>
-                {List.map((product) => (
+                {CartListFilter.map((product) => (
                     <Col
                         xl={6}
                         lg={8}
@@ -97,7 +65,7 @@ function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, 
                                     src={product.img}
                                 />
                                 <div className="product-name_price">
-                                    <div className='product-btn-color'>
+                                <div className='product-btn-color'>
                                         <button style={{outline:'none',backgroundColor:'rgb(81 79 79)'}}  className='btn-color'></button>
                                         <button style={{outline:'none', backgroundColor:'#ccc'}}  className='btn-color'></button>
                                         <button style={{outline:'none',backgroundColor:'rgb(252 252 247)'}}  className='btn-color'></button>
@@ -137,4 +105,4 @@ function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, 
 
     )
 }
-export default CartProduct;
+export default CartProductFilter;

@@ -3,18 +3,19 @@ import { Route, Routes, NavLink, BrowserRouter, useNavigate, useLocation } from 
 import { Empty } from 'antd';
 function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize }) {
   const CartList = [...Cart];
-  const CartSize = [...size]
   // setCart([...Cart,CartList])
-  console.log(CartList)
   const navigate = useNavigate();
   const location = useLocation();
   const hanldeShowCart = () => {
     navigate('/giohang')
   }
+  const hanldeShowProductFilter = (type) =>{
+    navigate(`/filter/${type}`)
+  }
 
   // console.log('location: ', location)
   const styleNava = {
-    color: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#fff' : '#000'
+    color: location.pathname.includes('/product')  || location.pathname.includes('/giohang') ? '#fff' : '#000'
   }
   const styleNavaicon = {
     color: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#fff' : '#000',
@@ -25,17 +26,25 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
 
   return (
     <div className="Nav" style={{
-      position: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'static' : 'fixed',
-      background: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '',
+      position:  location.pathname.includes('/product')|| location.pathname.includes('/giohang')  ? 'static' : 'fixed',
+      background: location.pathname.includes('/product')|| location.pathname.includes('/giohang') ? '#000' : '',
     }}>
       <div className="nav-logo"></div>
       <div className="nav-item">
         <NavLink to='/trangchu'>
-          <a style={styleNava} href="/#">Home</a>
+          <a className='nav-active' style={styleNava} href="/#">Home</a>
         </NavLink>
-        <a style={styleNava} href="#">About Us</a>
-        <a style={styleNava} href="#">Contact</a>
-        <a style={styleNava} href="#">More</a>
+        <a className='nav-active' style={styleNava} href="#">About Us</a>
+        <a className='nav-active' style={styleNava} href="#">Contact</a>
+        <a className='nav-more' style={styleNava} href="#">
+          <div className='nav-more-item'>
+            <div onClick={()=>hanldeShowProductFilter('váy')} className='nav-more-item-option'>Váy thời trang</div>
+            <div onClick={()=>hanldeShowProductFilter('đầm')} className='nav-more-item-option' >Đầm thời trang</div>
+            <div onClick={()=>hanldeShowProductFilter('set')} className='nav-more-item-option' >Các set thời trang</div>
+            <div className='nav-more-item-option' >More 4</div>
+          </div>
+          More
+          </a>
         <i style={styleNavaicon} className="fas fa-shopping-bag cart">
           <ul style={{ paddingLeft: 0 }} className="cart-item">
             <div style={{textAlign:'center'}}>
