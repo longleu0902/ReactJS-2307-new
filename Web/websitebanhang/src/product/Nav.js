@@ -1,6 +1,9 @@
 import react from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 import { Empty } from 'antd';
+import AuthFormLogin from './AuthForm';
+import AuthFormSignUp from './AuthFormSignUp';
+import { useState } from 'react';
 function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
@@ -9,27 +12,38 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
   const hanldeShowCart = () => {
     navigate('/giohang')
   }
-  const hanldeShowProductFilter = (type) =>{
+  const hanldeShowProductFilter = (type) => {
     navigate(`/filter/${type}`)
   }
 
   // console.log('location: ', location)
   const styleNava = {
-    color: location.pathname.includes('/product')  || location.pathname.includes('/giohang') ? '#fff' : '#000'
+    color: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#fff' : '#000'
   }
   const styleNavaicon = {
     color: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#fff' : '#000',
     margin: 10,
-    fontSize:'25px'
+    fontSize: '25px'
 
+  }
+  const [isOpenForm, setIsOpenForm] = useState(false)
+  const hanldeOpenForm = () => {
+    setIsOpenForm(prev => !prev)
   }
 
   return (
     <div className="Nav" style={{
-      position:  location.pathname.includes('/product')|| location.pathname.includes('/giohang')  ? 'static' : 'fixed',
-      background: location.pathname.includes('/product')|| location.pathname.includes('/giohang') ? '#000' : '',
+      position: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'static' : 'fixed',
+      background: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '',
     }}>
-      <div className="nav-logo"></div>
+      <div className="nav-logo">
+        <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+        </svg>
+        <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
+        {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} />}
+      </div>
       <div className="nav-item">
         <NavLink to='/trangchu'>
           <a className='nav-active' style={styleNava} href="/#">Home</a>
@@ -38,16 +52,16 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
         <a className='nav-active' style={styleNava} href="#">Contact</a>
         <a className='nav-more' style={styleNava} href="#">
           <div className='nav-more-item'>
-            <div onClick={()=>hanldeShowProductFilter('váy')} className='nav-more-item-option'>Váy thời trang</div>
-            <div onClick={()=>hanldeShowProductFilter('đầm')} className='nav-more-item-option' >Đầm thời trang</div>
-            <div onClick={()=>hanldeShowProductFilter('set')} className='nav-more-item-option' >Các set thời trang</div>
+            <div onClick={() => hanldeShowProductFilter('váy')} className='nav-more-item-option'>Váy thời trang</div>
+            <div onClick={() => hanldeShowProductFilter('đầm')} className='nav-more-item-option' >Đầm thời trang</div>
+            <div onClick={() => hanldeShowProductFilter('set')} className='nav-more-item-option' >Các set thời trang</div>
             <div className='nav-more-item-option' >More 4</div>
           </div>
           More
-          </a>
+        </a>
         <i style={styleNavaicon} className="fas fa-shopping-bag cart">
           <ul style={{ paddingLeft: 0 }} className="cart-item">
-            <div style={{textAlign:'center'}}>
+            <div style={{ textAlign: 'center' }}>
               <a style={{ color: "#000", fontFamily: 'Poppins', padding: '12px 12px' }}>Đơn hàng đã chọn</a>
               <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
             </div>
@@ -69,7 +83,7 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
                         }}
                       ></div>
                       <div onClick={hanldeShowCart} className='cart-list-info'>
-                        <span style={{ width: "300px", fontSize: "15px", height: '25px', margin: '0px 0px' ,fontFamily: 'Poppins'}}>
+                        <span style={{ width: "300px", fontSize: "15px", height: '25px', margin: '0px 0px', fontFamily: 'Poppins' }}>
                           {product.title}
                         </span>
                         <div><span style={{ fontSize: '12px' }}>Size: S</span></div>
@@ -99,16 +113,16 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
                 </li>
               ))}
             </div>
-            <div style={{ display: "flex",height:'80px'}}>
-              <button className='btn-xoa' onClick={hanldeShowCart} style={{ color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px', margin: '24px 24px 16px 24px' ,backgroundColor: "#000",color:'#fff', outline: 'none',width:'100%' }}>
+            <div style={{ display: "flex", height: '80px' }}>
+              <button className='btn-xoa' onClick={hanldeShowCart} style={{ color: "#000", fontFamily: "Times New Roman", borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px', margin: '24px 24px 16px 24px', backgroundColor: "#000", color: '#fff', outline: 'none', width: '100%' }}>
                 Chi tiết giỏ hàng
               </button>
             </div>
           </ul>
           <span style={{
-            color:location.pathname.includes('/product')|| location.pathname.includes('/giohang')?'#000':'#fff'
-          }} 
-          className="Soluong">{soluong}</span>
+            color: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '#fff'
+          }}
+            className="Soluong">{soluong}</span>
         </i>
       </div>
     </div>

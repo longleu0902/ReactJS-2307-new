@@ -11,6 +11,8 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, NavLink, BrowserRouter } from 'react-router-dom';
 import {  message } from 'antd';
 import ListDataService from  "./Lists.services";
+import AuthFormLogin from './product/AuthFormSignUp';
+import AuthFormSignUp from './product/AuthForm';
 function App() {
     const [List,setList] = useState([]);
     const getLists = async () => {
@@ -140,6 +142,7 @@ function App() {
             <Route path="/filter/:sample" element={<CartProductFilter List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
             <Route path='/product/:id' element={<ShowCartProduct List={List} setList={setList} Cart={Cart} setCart={setCart} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas}/>} />
             <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut}  />} />
+            <Route path='/AuthFormSignUp' element={<AuthFormSignUp/>}/>
           </Routes>
         </div>
       </BrowserRouter>

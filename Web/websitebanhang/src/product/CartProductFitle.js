@@ -9,7 +9,7 @@ function CartProductFilter({ List, HandleAddProduct, numberWithCommas, size, set
         navigate(`/${type}/${idProduct}`);
     }
     const params = useParams();
-    console.log("param", params)
+    // console.log("param", params)
     const samples = params.sample
     const CartList = [...List];
     const CartListFilter = CartList.filter((product)=> product.sample == samples)
