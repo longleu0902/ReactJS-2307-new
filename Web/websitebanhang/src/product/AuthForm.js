@@ -48,7 +48,7 @@ const AuthFormSignUp = () => {
                             </p>
                         </div>
                         <div className="auth-form_controls">
-                            <NavLink to='/trangchu'>
+                            <NavLink to='/giohang'>
                             <button className="btn btn-normal auth-form_controls-back">
                                 TRỞ LẠI
                             </button>

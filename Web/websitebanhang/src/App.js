@@ -9,7 +9,7 @@ import ShowCartProduct from './product/ShowCartProduct';
 import ShoppingCart from './product/ShoppingCart';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, NavLink, BrowserRouter } from 'react-router-dom';
-import {  message } from 'antd';
+import {  message,Pagination } from 'antd';
 import ListDataService from  "./Lists.services";
 import AuthFormLogin from './product/AuthFormSignUp';
 import AuthFormSignUp from './product/AuthForm';
@@ -95,27 +95,25 @@ function App() {
   const [messageApi, contextHolder] = message.useMessage();
   const [size, setSize] = useState([]) //đây là state để lưu size 
   const handleClickSize = (type) => {
-    const arr = [{...size}]
-      setSize(type);
-      console.log(arr)     
+      setSize(type);    
   }
   const HandleAddProduct = (product) => {
     const tempCart = [...Cart] 
-    const proIdx = tempCart.findIndex(it => it.id === product.id) 
+    const proIdx = tempCart.findIndex(it => it.id === product.id && it.size == product.size && it.color == product.color) 
     if(proIdx === -1){
       tempCart.push(product) // đây là trường hợp chưa có sp đó trong cart thì sẽ thêm nó vào
     }else{
-      tempCart[proIdx] = {...tempCart[proIdx],amount: tempCart[proIdx].amount + 1}//đây là khi đã tồn tài thì sẽ tăng số lượng sp lên 1
+      tempCart[proIdx] = {...tempCart[proIdx],...product,amount: tempCart[proIdx].amount + 1}//đây là khi đã tồn tài thì sẽ tăng số lượng sp lên 1
     }
     setCart([...tempCart]);
     messageApi.open({
       type: 'success',
       content: 'Đã thêm sản phẩm vào giỏ hàng',
     });
-
   }
+  console.log(Cart)
   const removeProduct = (sanpham) => {
-    const arr = Cart.filter(sp => sp.id !== sanpham.id);
+    const arr = Cart.filter((sp) => sp.id !== sanpham.id || sp.color != sanpham.color || sp.size != sanpham.size);
     console.log(arr)
     setCart([...arr])
   }
@@ -126,19 +124,23 @@ function App() {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  const [keywords,setKeywords] = useState('');
+  const getKeywords = (e) =>{
+    setKeywords(e.target.value);
+  }
   return (
     <div className="App">
       {contextHolder}
       {/* <Footer /> */}
       <BrowserRouter>
         <div>
-          <Nav soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />
+          <Nav getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />
           <Routes>
             <Route path="/trangchu" element={<Header />} />
             <Route path="/filter/:sample" element={<Header />} />
           </Routes>
           <Routes>
-            <Route path="/trangchu" element={<CartProduct List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
+            <Route path="/trangchu" element={<CartProduct keywords={keywords} List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
             <Route path="/filter/:sample" element={<CartProductFilter List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
             <Route path='/product/:id' element={<ShowCartProduct List={List} setList={setList} Cart={Cart} setCart={setCart} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas}/>} />
             <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut}  />} />

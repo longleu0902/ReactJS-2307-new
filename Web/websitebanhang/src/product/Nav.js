@@ -1,10 +1,11 @@
 import react from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
-import { Empty } from 'antd';
+import { Empty, Input, Space } from 'antd';
 import AuthFormLogin from './AuthForm';
 import AuthFormSignUp from './AuthFormSignUp';
 import { useState } from 'react';
-function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize }) {
+import { AudioOutlined } from '@ant-design/icons';
+function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize, getKeywords }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
   const navigate = useNavigate();
@@ -30,6 +31,16 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
   const hanldeOpenForm = () => {
     setIsOpenForm(prev => !prev)
   }
+  const { Search } = Input;
+
+  const suffix = (
+    <AudioOutlined
+      style={{
+        fontSize: 16,
+        color: '#1677ff',
+      }}
+    />
+  );
 
   return (
     <div className="Nav" style={{
@@ -37,12 +48,36 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
       background: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '',
     }}>
       <div className="nav-logo">
-        <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-        </svg>
-        <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
-        {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} />}
+        <div style={{
+          display: location.pathname.includes('/giohang') ? 'block' : 'none'
+        }} className='nav-login'>
+          <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+          </svg>
+          <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
+          {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} />}
+        </div>
+        <div style={{
+          display: location.pathname.includes('/filter') || location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'none' : 'block'
+        }} className='nav-input-search'>
+          <div className='search-hidden'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+            <div className='search-show'>
+              <Space  direction="vertical">
+                <Search 
+                  placeholder=" Search "
+                  onChange={getKeywords}
+                  style={{
+                    width: 200,
+                  }}
+                />
+              </Space>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="nav-item">
         <NavLink to='/trangchu'>
@@ -86,7 +121,8 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
                         <span style={{ width: "300px", fontSize: "15px", height: '25px', margin: '0px 0px', fontFamily: 'Poppins' }}>
                           {product.title}
                         </span>
-                        <div><span style={{ fontSize: '12px' }}>Size: S</span></div>
+                        <div><span style={{ fontSize: '12px' }}>Size: {product?.size}</span></div>  
+                        <div><span style={{ fontSize: '12px' }}>Màu: {product?.color}</span></div>                        
                         <div><span style={{ fontSize: '12px' }} >Số lượng: {product.amount}</span> </div>
                         <span style={{ color: "#000", fontSize: '15px' }}>{numberWithCommas(product.price)}đ</span>
                       </div>

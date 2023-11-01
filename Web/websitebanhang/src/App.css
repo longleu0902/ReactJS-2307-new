@@ -1,15 +1,23 @@
 
+body {
+  font-family: "futura-pt";
+}
+h1{
+  font-family: "futura-pt";
+  
+}
 .CTN{
   margin: 0px 60px;
 }
 /* font chữ vuông */
 .square-font {
-  font-family: 'Arial', sans-serif; /* Sử dụng font chữ Arial hoặc font mặc định của hệ thống */
+  /* font-family: 'Arial', sans-serif; Sử dụng font chữ Arial hoặc font mặc định của hệ thống */
   font-weight: bold; /* In đậm chữ */
   text-transform: uppercase; /* Chuyển đổi chữ thành in hoa */
   color: #333; /* Màu chữ */
-  text-shadow: 2px 2px 4px rgba(52, 51, 51, 0.5); /* Đổ bóng văn bản */
+  /* text-shadow: 2px 2px 4px rgba(52, 51, 51, 0.5); Đổ bóng văn bản */
   font-size: 24px;
+  font-family: 'futura-pt';
 }
 .Nav{
   width: 100%;
@@ -76,9 +84,31 @@ background-color: #e7e4e4;
 }
 .nav-logo{
   padding: 12px 24px;
-  margin-bottom: 15px;
+  margin-bottom: 17px;
   cursor: pointer;
+  display: flex;
 }
+.search-hidden{
+  position: relative;
+}
+.search-show{
+  position: absolute;
+  top: 0;
+  display: none;
+}
+.search-hidden:hover .search-show{
+  display: block;
+  animation: slide 0.5s linear ;
+}
+@keyframes slide {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0px; 
+  }
+}
+
 .cart{
   font-size: 24px;
    margin-left: 6px;

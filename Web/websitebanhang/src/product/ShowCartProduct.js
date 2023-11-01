@@ -15,8 +15,11 @@ function ShowCartProduct({ List, setList, Cart, setCart, HandleAddProduct, numbe
             (element) => element.id == params.id
         )
         if (product !== undefined && productDetail == null) {
-            setProductDetail({ ...product });
+            setProductDetail({ ...product, size: "S", color: "Đen" });
         }
+    }
+    const handleChange = (key, value) => {
+        setProductDetail({ ...productDetail, [key]: value })
     }
     // console.log(productDetail)
     return (
@@ -39,11 +42,6 @@ function ShowCartProduct({ List, setList, Cart, setCart, HandleAddProduct, numbe
                                 <img style={{ width: '100%', height: '100%', backgroundSize: 'cover' }} src='https://cf.shopee.vn/file/da9692b78e73e57c0ade2b3237074791'></img>
                             </h3>
                         </div>
-                        <div>
-                            <h3 style={contentStyle}>
-                                <img style={{ width: '100%', height: '100%', backgroundSize: 'cover' }} src='https://xuconcept.com/wp-content/uploads/2020/12/xu-huong-chup-quan-ao.jpg'></img>
-                            </h3>
-                        </div>
                     </Carousel>
 
                 </div>
@@ -54,22 +52,22 @@ function ShowCartProduct({ List, setList, Cart, setCart, HandleAddProduct, numbe
                     <span style={{ fontSize: 30, color: "#eb6e6e" }}>{productDetail !== null ? numberWithCommas(productDetail.price) : ''}đ</span>
                     <div className="showproduct-info-color">
                         <p>Màu sắc</p>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">Đen</button>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">Trắng</button>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">Xám</button>
+                        <button onClick={() => handleChange("color", "Đen")} style={{background:"Đen"===productDetail?.color?'#ccc':'',outline: 'none' }} className="showproduct-btn">Đen</button>
+                        <button onClick={() => handleChange("color", "Trắng")} style={{background:"Trắng"===productDetail?.color?'#ccc':'' ,outline: 'none' }} className="showproduct-btn">Trắng</button>
+                        <button onClick={() => handleChange("color", "Hồng")} style={{ background:"Hồng"===productDetail?.color?'#ccc':'',outline: 'none' }} className="showproduct-btn">Hồng</button>
                     </div>
                     <div className="showproduct-info-size">
                         <p>Kích cỡ</p>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">S</button>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">L</button>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">XL</button>
-                        <button style={{ outline: 'none' }} className="showproduct-btn">XXl</button>
+                        <button onClick={() => handleChange("size", "S")} style={{background:"S"===productDetail?.size?'#ccc':'' ,outline: 'none' }} className="showproduct-btn">S</button>
+                        <button onClick={() => handleChange("size", "L")} style={{background:"L"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">L</button>
+                        <button onClick={() => handleChange("size", "XL")} style={{background:"XL"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">XL</button>
+                        <button onClick={() => handleChange("size", "XXL")} style={{background:"XXL"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">XXL</button>
                     </div>
                     <div className="showproduct-info-guide">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
                         </svg>
-                        <span style={{ fontSize: 12, textDecoration: "underline",marginLeft:'12px' }}>
+                        <span style={{ fontSize: 12, textDecoration: "underline", marginLeft: '12px' }}>
                             Hướng dẫn chọn kích cỡ
                         </span>
                         <div className="guide">

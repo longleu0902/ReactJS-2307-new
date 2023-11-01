@@ -120,11 +120,9 @@ const CartComponent = ({ product, thaydoisoluong, removeProduct, numberWithComma
                 <span style={{ color: "#eb6e6e", marginLeft: "3px" }}>{numberWithCommas(product.price)}đ</span>
                 <div className="dropdown-cart">
                     <div className='Size'>
-                        <button onClick={() => handleClickSize("s")} style={{ backgroundColor: "s" === size ? 'rgb(240 240 240)' : '#fff', outline: 'none' }} className='size-item'>S</button>
-                        <button onClick={() => handleClickSize("l")} style={{ backgroundColor: "l" === size ? 'rgb(240 240 240)' : '#fff', outline: 'none' }} className='size-item'>L</button>
-                        <button onClick={() => handleClickSize("xl")} style={{ backgroundColor: "xl" === size ? 'rgb(240 240 240)' : '#fff', outline: 'none' }} className='size-item'>XL</button>
-                        <button onClick={() => handleClickSize("xxl")} style={{ backgroundColor: "xxl" === size ? 'rgb(240 240 240)' : '#fff', outline: 'none' }} className='size-item'>XXL</button>
+                        <span>Size: {product.size}</span>
                     </div>
+                    <div><span>Màu: {product.color}</span></div>
                     <div className="amout">
                         <button style={{ backgroundColor: '#fff' }} onClick={() => thaydoisoluong(product, -1)} className="btn-amout">-</button>
                         <input style={{ width: 30, border: '1px solid #ccc' }} type="text" value={product.amount} readOnly={true} />
