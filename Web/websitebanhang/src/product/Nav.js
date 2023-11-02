@@ -83,8 +83,8 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
         <NavLink to='/trangchu'>
           <a className='nav-active' style={styleNava} href="/#">Home</a>
         </NavLink>
-        <a className='nav-active' style={styleNava} href="#">About Us</a>
-        <a className='nav-active' style={styleNava} href="#">Contact</a>
+        <a className='nav-active' style={styleNava} href="#aboutus">About Us</a>
+        <a className='nav-active' style={styleNava} href="#contact">Contact</a>
         <a className='nav-more' style={styleNava} href="#">
           <div className='nav-more-item'>
             <div onClick={() => hanldeShowProductFilter('váy')} className='nav-more-item-option'>Váy thời trang</div>

@@ -25,13 +25,6 @@ function CartProductFilter({ List, HandleAddProduct, numberWithCommas, size, set
             {/* </Col> */}
             {/* </Row> */}
         </div>
-
-
-
-
-
-
-
     )
 }
 export default CartProductFilter;

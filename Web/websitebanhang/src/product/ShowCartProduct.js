@@ -15,7 +15,7 @@ function ShowCartProduct({ List, setList, Cart, setCart, HandleAddProduct, numbe
             (element) => element.id == params.id
         )
         if (product !== undefined && productDetail == null) {
-            setProductDetail({ ...product, size: "S", color: "Đen" });
+            setProductDetail({ ...product, size: "S", color: "Trắng" });
         }
     }
     const handleChange = (key, value) => {
@@ -52,16 +52,16 @@ function ShowCartProduct({ List, setList, Cart, setCart, HandleAddProduct, numbe
                     <span style={{ fontSize: 30, color: "#eb6e6e" }}>{productDetail !== null ? numberWithCommas(productDetail.price) : ''}đ</span>
                     <div className="showproduct-info-color">
                         <p>Màu sắc</p>
-                        <button onClick={() => handleChange("color", "Đen")} style={{background:"Đen"===productDetail?.color?'#ccc':'',outline: 'none' }} className="showproduct-btn">Đen</button>
-                        <button onClick={() => handleChange("color", "Trắng")} style={{background:"Trắng"===productDetail?.color?'#ccc':'' ,outline: 'none' }} className="showproduct-btn">Trắng</button>
-                        <button onClick={() => handleChange("color", "Hồng")} style={{ background:"Hồng"===productDetail?.color?'#ccc':'',outline: 'none' }} className="showproduct-btn">Hồng</button>
+                        <button onClick={() => handleChange("color", "Đen")} style={{background:"Đen"===productDetail?.color?'rgb(235 235 235)':'',outline: 'none' }} className="showproduct-btn">Đen</button>
+                        <button onClick={() => handleChange("color", "Trắng")} style={{background:"Trắng"===productDetail?.color?'rgb(235 235 235)':'' ,outline: 'none' }} className="showproduct-btn">Trắng</button>
+                        <button onClick={() => handleChange("color", "Hồng")} style={{ background:"Hồng"===productDetail?.color?'rgb(235 235 235)':'',outline: 'none' }} className="showproduct-btn">Hồng</button>
                     </div>
                     <div className="showproduct-info-size">
                         <p>Kích cỡ</p>
-                        <button onClick={() => handleChange("size", "S")} style={{background:"S"===productDetail?.size?'#ccc':'' ,outline: 'none' }} className="showproduct-btn">S</button>
-                        <button onClick={() => handleChange("size", "L")} style={{background:"L"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">L</button>
-                        <button onClick={() => handleChange("size", "XL")} style={{background:"XL"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">XL</button>
-                        <button onClick={() => handleChange("size", "XXL")} style={{background:"XXL"===productDetail?.size?'#ccc':''  ,outline: 'none' }} className="showproduct-btn">XXL</button>
+                        <button onClick={() => handleChange("size", "S")} style={{background:"S"===productDetail?.size?'rgb(235 235 235)':'' ,outline: 'none' }} className="showproduct-btn">S</button>
+                        <button onClick={() => handleChange("size", "L")} style={{background:"L"===productDetail?.size?'rgb(235 235 235)':''  ,outline: 'none' }} className="showproduct-btn">L</button>
+                        <button onClick={() => handleChange("size", "XL")} style={{background:"XL"===productDetail?.size?'rgb(235 235 235)':''  ,outline: 'none' }} className="showproduct-btn">XL</button>
+                        <button onClick={() => handleChange("size", "XXL")} style={{background:"XXL"===productDetail?.size?'rgb(235 235 235)':''  ,outline: 'none' }} className="showproduct-btn">XXL</button>
                     </div>
                     <div className="showproduct-info-guide">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">

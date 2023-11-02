@@ -56,6 +56,7 @@ function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, 
 
                 ))}
             </Row>
+            <div className='Pagination'></div>
                 <Pagination defaultCurrent={1} total={List.length} defaultPageSize={optionPage.pageSize} onChange={(page)=>{setOptionPage({...optionPage,page})}}/>
             {/* </Col> */}
             {/* </Row> */}

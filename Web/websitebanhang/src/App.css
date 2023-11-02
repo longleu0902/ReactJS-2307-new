@@ -681,3 +681,36 @@ background-color: #3a5a98;
   font-size: 14px;
   padding: 3px 6px;
 }
+.Pagination{
+  margin-top: 100px;
+}
+.Footer{
+  margin-top: 50px;
+  width: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: space-around;
+}
+.Footer-contact{
+  width: 20%;
+
+}
+.Footer-aboutus{
+  width: 12%;
+
+}
+.aboutus-link{
+  color: #fff;
+  font-size: 13px;
+}
+.aboutus-link:hover{
+  color: #fff;
+}
+.Footer-Follow{
+  width: 15%;
+
+}
+.Footer-payment{
+  width: 20%;
+
+}

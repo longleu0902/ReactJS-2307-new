@@ -146,6 +146,7 @@ function App() {
             <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut}  />} />
             <Route path='/AuthFormSignUp' element={<AuthFormSignUp/>}/>
           </Routes>
+          <Footer/>
         </div>
       </BrowserRouter>
 

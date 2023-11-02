@@ -9,7 +9,7 @@ const CartChild = ({product,HandleAddProduct,numberWithCommas,handleClickSize,si
         navigate(`/${type}/${idProduct}`);
     }
 
-    const [productTemp,setProductTemp] = useState({...product,size:'S',color:'Đen'})
+    const [productTemp,setProductTemp] = useState({...product,size:'S',color:'Trắng'})
 
     const handleChange = (key,value) => {
         setProductTemp({...productTemp,[key]:value})
