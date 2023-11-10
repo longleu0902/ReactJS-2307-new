@@ -10,7 +10,7 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
     const thaydoisoluong = (sanpham, sl) => {
         const idx = CartList.indexOf(sanpham);
         const arr = [...CartList];
-        arr[idx].amount += sl;
+        arr[idx].amount = Number(arr[idx].amount) + Number(sl);
         if (arr[idx].amount === 0) {
             arr[idx].amount = 1;
         }
@@ -18,7 +18,7 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
     }
     const tinhtongtien = () => {
         let tong = CartList.reduce(function (a, b) {
-            return a + b.price * b.amount
+            return Number(a) + Number(b.price) * Number(b.amount)
         }, 0)
         setTongTien(tong)
     }

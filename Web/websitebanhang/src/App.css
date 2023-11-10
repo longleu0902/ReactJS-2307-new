@@ -96,6 +96,17 @@ background-color: #e7e4e4;
   top: 0;
   display: none;
 }
+.search-filter{
+  width: 500px;
+  height: 500px;
+  background-color: #fff;
+  overflow: auto; /* Tự động hiển thị thanh cuộn khi cần thiết */
+  white-space: nowrap; /* Ngăn ngừa các nội dung xuống dòng */
+}
+.search-filter-item{
+  width: 100%;
+  margin: 12px 12px;
+}
 .search-hidden:hover .search-show{
   display: block;
   animation: slide 0.5s linear ;
@@ -682,7 +693,7 @@ background-color: #3a5a98;
   padding: 3px 6px;
 }
 .Pagination{
-  margin-top: 100px;
+  margin-top: 100px ;
 }
 .Footer{
   margin-top: 50px;
@@ -713,4 +724,56 @@ background-color: #3a5a98;
 .Footer-payment{
   width: 20%;
 
+}
+.pagination-style {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+.pagination-active{
+  /* background-color: #ccc; */
+  border: 1px solid #ccc;
+}
+.pagination-a{
+  padding: 1px 6px;
+  margin: 0px 15px;
+  color: #000;
+  /* border: 1px solid #ccc; */
+}
+.pagination-a:hover{
+  text-decoration: none;
+  color: #ccc;
+}
+.pagination-next-pre{
+  margin: 0 10px;
+  color: #000;
+  
+}
+.pagination-next-pre:hover{
+  text-decoration: none;
+  color: #ccc;
+
+}
+/* CartLogin */
+.img-login{
+  max-width: 35px;
+  border-radius: 50px;
+  margin: 12px 12px 0px 0px;
+}
+
+/* Admin  */
+.Admin{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 40px;
+}
+.Post-price{
+}
+.update-price{
+  /* top: 0; */
+  display: none;
+}
+.Post-price:hover .update-price{
+  display: block;
 }

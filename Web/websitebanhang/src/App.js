@@ -9,21 +9,29 @@ import ShowCartProduct from './product/ShowCartProduct';
 import ShoppingCart from './product/ShoppingCart';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, NavLink, BrowserRouter } from 'react-router-dom';
-import {  message,Pagination } from 'antd';
-import ListDataService from  "./Lists.services";
+import { message, Pagination } from 'antd';
+import ListDataService from "./Lists.services";
 import AuthFormLogin from './product/AuthFormSignUp';
 import AuthFormSignUp from './product/AuthForm';
+import Admin from "./Admin/LoginAd";
+import MainAdmin from './Admin/main-admin';
 function App() {
-    const [List,setList] = useState([]);
-    const getLists = async () => {
-        const data = await ListDataService.getAllLists();
-        setList(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
+  const [List, setList] = useState([]);
+  const getLists = async () => {
+    try{
+      const data = await ListDataService.getAllLists();
+      const dataList = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      setList(dataList)
+    }catch(err){
+      console.log(err)
     }
-    useEffect(()=>{
-        getLists();
-    },[]);
+
+  }
+  useEffect(() => {
+    getLists();
+  }, []);
   // console.log(List)
-     ///test list
+  ///test list
   // const [List, setList] = useState([
   //   {
   //     id: 1,
@@ -95,62 +103,79 @@ function App() {
   const [messageApi, contextHolder] = message.useMessage();
   const [size, setSize] = useState([]) //đây là state để lưu size 
   const handleClickSize = (type) => {
-      setSize(type);    
+    setSize(type);
   }
   const HandleAddProduct = (product) => {
-    const tempCart = [...Cart] 
-    const proIdx = tempCart.findIndex(it => it.id === product.id && it.size == product.size && it.color == product.color) 
-    if(proIdx === -1){
-      tempCart.push(product) // đây là trường hợp chưa có sp đó trong cart thì sẽ thêm nó vào
-    }else{
-      tempCart[proIdx] = {...tempCart[proIdx],...product,amount: tempCart[proIdx].amount + 1}//đây là khi đã tồn tài thì sẽ tăng số lượng sp lên 1
+    const tempCart = [...Cart]
+    const proIdx = tempCart.findIndex(it => it.id === product.id && it.size == product.size && it.color == product.color)
+    if (proIdx === -1) {
+      tempCart.push(product)
+    } else {
+      tempCart[proIdx] = { ...tempCart[proIdx], ...product, amount: tempCart[proIdx].amount + 1 }//khi đã tồn tài thì sẽ tăng số lượng sp lên 1
     }
     setCart([...tempCart]);
+    console.log(tempCart)
     messageApi.open({
       type: 'success',
       content: 'Đã thêm sản phẩm vào giỏ hàng',
     });
   }
-  console.log(Cart)
+  // console.log(Cart)
   const removeProduct = (sanpham) => {
     const arr = Cart.filter((sp) => sp.id !== sanpham.id || sp.color != sanpham.color || sp.size != sanpham.size);
-    console.log(arr)
-    setCart([...arr])
-  }
+    console.log(arr);
+    setCart([...arr]);
+  };
   const removeAllProdcut = () => {
-    const arr = ''
-    setCart([...arr])
-  }
+    const arr = '';
+    setCart([...arr]);
+  };
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-  const [keywords,setKeywords] = useState('');
-  const getKeywords = (e) =>{
+  };
+  const [keywords, setKeywords] = useState('');
+  const getKeywords = (e) => {
     setKeywords(e.target.value);
-  }
+  };
+
   return (
     <div className="App">
       {contextHolder}
       {/* <Footer /> */}
       <BrowserRouter>
         <div>
-          <Nav getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />
           <Routes>
-            <Route path="/trangchu" element={<Header />} />
+            <Route path='/' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/filter/:sample' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/product/:id' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/giohang' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/AuthFormSignUp' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+          </Routes>
+          <Routes>
+            <Route path="/" element={<Header />} />
             <Route path="/filter/:sample" element={<Header />} />
+            <Route path="/Admin" element={<Header />} />
           </Routes>
           <Routes>
-            <Route path="/trangchu" element={<CartProduct keywords={keywords} List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
-            <Route path="/filter/:sample" element={<CartProductFilter List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize}/>} />
-            <Route path='/product/:id' element={<ShowCartProduct List={List} setList={setList} Cart={Cart} setCart={setCart} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas}/>} />
-            <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut}  />} />
-            <Route path='/AuthFormSignUp' element={<AuthFormSignUp/>}/>
+            <Route path="/" element={<CartProduct keywords={keywords} List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize} />} />
+            <Route path="/filter/:sample" element={<CartProductFilter List={List} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} setSize={setSize} />} />
+            <Route path='/product/:id' element={<ShowCartProduct List={List} setList={setList} Cart={Cart} setCart={setCart} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} />} />
+            <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut} />} />
+            <Route path='/AuthFormSignUp' element={<AuthFormSignUp />} />
+            <Route path='/Admin' element={<Admin />} />
+            <Route path='/MainAdmin' element={<MainAdmin List={List} setList={setList}/>} />        
           </Routes>
-          <Footer/>
+          <Routes>
+            <Route path='/' element={<Footer />} />
+            <Route path='/filter/:sample' element={<Footer />} />
+            <Route path='/product/:id' element={<Footer />} />
+            <Route path='/giohang' element={<Footer />} />
+            <Route path='/AuthFormSignUp' element={<Footer />} />
+          </Routes>
         </div>
       </BrowserRouter>
-
     </div>
+
   );
 }
 

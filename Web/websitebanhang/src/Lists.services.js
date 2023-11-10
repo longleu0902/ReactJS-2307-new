@@ -1,8 +1,7 @@
 import { db } from "./firebase-config";
-
 import{
     collection ,
-    getDocs
+    getDocs,
 } from "firebase/firestore"
 const ListCollectionRef = collection(db,"Lists");
 class ListDataService{

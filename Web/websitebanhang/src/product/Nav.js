@@ -5,7 +5,10 @@ import AuthFormLogin from './AuthForm';
 import AuthFormSignUp from './AuthFormSignUp';
 import { useState } from 'react';
 import { AudioOutlined } from '@ant-design/icons';
-function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize, getKeywords }) {
+import { getAuth, GoogleAuthProvider, signInWithPopup,FacebookAuthProvider  } from "firebase/auth";
+import { auth } from "../firebase-config"
+import SearchFilter from './SearchFilter';
+function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize, getKeywords,keywords,List }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
   const navigate = useNavigate();
@@ -41,7 +44,55 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
       }}
     />
   );
-
+  //auth
+  const [userLogin, setUserLogin] = useState('')
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      // console.log("Đăng nhập thành công:", user);
+      const userID = await auth.currentUser;
+      if (userID) {
+        // Lấy thông tin của người dùng
+        const AD = [
+          {
+            name: userID.displayName,
+            email: userID.email,
+            uid: userID.uid,
+           photo:user.photoURL,
+          }
+        ]
+        setUserLogin(...AD);
+      }
+    } catch (error) {
+      console.error("Lỗi đăng nhập:", error);
+    }
+  };
+  const handleFacebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Đăng nhập thành công:", user);
+      const userID = await auth.currentUser;
+      if (userID) {
+        // Lấy thông tin của người dùng
+        const AD = [
+          {
+            name: userID.displayName,
+            email: userID.email,
+            uid: userID.uid,
+           photo:user.photoURL,
+          }
+        ]
+        setUserLogin(...AD);
+      }
+    } catch (error) {
+      console.error("Lỗi đăng nhập:", error);
+    }
+  }
+  // console.log("Thông tin người dùng", userLogin)
   return (
     <div className="Nav" style={{
       position: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'static' : 'fixed',
@@ -51,12 +102,20 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
         <div style={{
           display: location.pathname.includes('/giohang') ? 'block' : 'none'
         }} className='nav-login'>
-          <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-          </svg>
-          <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
-          {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} />}
+          {userLogin==''?(
+                      <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                    </svg>
+          ):(
+           <img className='img-login' src={userLogin.photo}/>
+          )}
+          {userLogin == '' ? (
+            <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
+          ) : (
+            <span style={styleNava} onClick={hanldeOpenForm}>{userLogin.name}</span>
+          )}
+          {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} handleFacebookLogin={handleFacebookLogin} handleGoogleLogin={handleGoogleLogin} />}
         </div>
         <div style={{
           display: location.pathname.includes('/filter') || location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'none' : 'block'
@@ -66,21 +125,26 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
             </svg>
             <div className='search-show'>
-              <Space  direction="vertical">
-                <Search 
+              <Space direction="vertical">
+                <Search
                   placeholder=" Search "
                   onChange={getKeywords}
                   style={{
                     width: 200,
                   }}
                 />
+                {keywords!=''?(
+                    <div className='search-filter'>
+                    <SearchFilter List={List} keywords={keywords}/>      
+                  </div>
+                ):''}
               </Space>
             </div>
           </div>
         </div>
       </div>
       <div className="nav-item">
-        <NavLink to='/trangchu'>
+        <NavLink to='/'>
           <a className='nav-active' style={styleNava} href="/#">Home</a>
         </NavLink>
         <a className='nav-active' style={styleNava} href="#aboutus">About Us</a>
@@ -90,7 +154,7 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
             <div onClick={() => hanldeShowProductFilter('váy')} className='nav-more-item-option'>Váy thời trang</div>
             <div onClick={() => hanldeShowProductFilter('đầm')} className='nav-more-item-option' >Đầm thời trang</div>
             <div onClick={() => hanldeShowProductFilter('set')} className='nav-more-item-option' >Các set thời trang</div>
-            <div className='nav-more-item-option' >More 4</div>
+            <div onClick={() => hanldeShowProductFilter('áo')} className='nav-more-item-option' >Các mẫu áo</div>
           </div>
           More
         </a>
@@ -121,8 +185,8 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
                         <span style={{ width: "300px", fontSize: "15px", height: '25px', margin: '0px 0px', fontFamily: 'Poppins' }}>
                           {product.title}
                         </span>
-                        <div><span style={{ fontSize: '12px' }}>Size: {product?.size}</span></div>  
-                        <div><span style={{ fontSize: '12px' }}>Màu: {product?.color}</span></div>                        
+                        <div><span style={{ fontSize: '12px' }}>Size: {product?.size}</span></div>
+                        <div><span style={{ fontSize: '12px' }}>Màu: {product?.color}</span></div>
                         <div><span style={{ fontSize: '12px' }} >Số lượng: {product.amount}</span> </div>
                         <span style={{ color: "#000", fontSize: '15px' }}>{numberWithCommas(product.price)}đ</span>
                       </div>
