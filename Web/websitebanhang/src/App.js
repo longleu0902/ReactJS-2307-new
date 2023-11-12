@@ -18,11 +18,11 @@ import MainAdmin from './Admin/main-admin';
 function App() {
   const [List, setList] = useState([]);
   const getLists = async () => {
-    try{
+    try {
       const data = await ListDataService.getAllLists();
       const dataList = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       setList(dataList)
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
 
@@ -114,21 +114,37 @@ function App() {
       tempCart[proIdx] = { ...tempCart[proIdx], ...product, amount: tempCart[proIdx].amount + 1 }//khi đã tồn tài thì sẽ tăng số lượng sp lên 1
     }
     setCart([...tempCart]);
-    console.log(tempCart)
+    localStorage.setItem('Cart', JSON.stringify(tempCart))
+    // console.log(tempCart)
     messageApi.open({
       type: 'success',
       content: 'Đã thêm sản phẩm vào giỏ hàng',
     });
   }
+  useEffect(() => {
+    const storedArray = JSON.parse(localStorage.getItem('Cart'));
+    setCart([...storedArray])
+  }, [])
   // console.log(Cart)
   const removeProduct = (sanpham) => {
     const arr = Cart.filter((sp) => sp.id !== sanpham.id || sp.color != sanpham.color || sp.size != sanpham.size);
     console.log(arr);
     setCart([...arr]);
+    const storedArrayString = localStorage.getItem('Cart');
+    if (storedArrayString) {
+      const storedArray = JSON.parse(storedArrayString);
+      const removeArray = storedArray.filter(item => item.id !== sanpham.id || item.color != sanpham.color || item.size != sanpham.size);
+      localStorage.setItem('Cart', JSON.stringify(removeArray));
+    } else {
+      console.error("No data found in localStorage with the specified key");
+    }
   };
   const removeAllProdcut = () => {
     const arr = '';
     setCart([...arr]);
+    const existingArray = JSON.parse(localStorage.getItem('Cart')) || [];
+    existingArray.length = 0;
+    localStorage.setItem('Cart', JSON.stringify(existingArray));
   };
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -146,10 +162,10 @@ function App() {
         <div>
           <Routes>
             <Route path='/' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
-            <Route path='/filter/:sample' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
-            <Route path='/product/:id' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
-            <Route path='/giohang' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
-            <Route path='/AuthFormSignUp' element={<Nav List={List} keywords={keywords}  getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/filter/:sample' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/product/:id' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/giohang' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
+            <Route path='/AuthFormSignUp' element={<Nav List={List} keywords={keywords} getKeywords={getKeywords} soluong={Cart.length} Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} size={size} setSize={setSize} />} />
           </Routes>
           <Routes>
             <Route path="/" element={<Header />} />
@@ -162,8 +178,8 @@ function App() {
             <Route path='/product/:id' element={<ShowCartProduct List={List} setList={setList} Cart={Cart} setCart={setCart} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} />} />
             <Route path="/giohang" element={<ShoppingCart Cart={Cart} setCart={setCart} removeProduct={removeProduct} numberWithCommas={numberWithCommas} removeAllProdcut={removeAllProdcut} />} />
             <Route path='/AuthFormSignUp' element={<AuthFormSignUp />} />
-            <Route path='/Admin' element={<Admin />} />
-            <Route path='/MainAdmin' element={<MainAdmin List={List} setList={setList}/>} />        
+            <Route path='/Admin' element={<Admin/>}/> 
+            <Route path='/MainAdmin' element={<MainAdmin List={List} setList={setList} />} />
           </Routes>
           <Routes>
             <Route path='/' element={<Footer />} />

@@ -149,7 +149,7 @@ const Post = ({ List, setList }) => {
             </div>
             <button onClick={hanldeOpenForm} style={{ border: 'none' }}> + </button>
             {openForm && <form onSubmit={formik.handleSubmit}>
-                <div className='mt-5'>
+                <div className='mt-2'>
                     <Input
                         addonBefore='img'
                         placeholder='Enter your img product'
@@ -160,7 +160,7 @@ const Post = ({ List, setList }) => {
                     />
                     <p style={{ color: 'red' }}>{formik.errors.img}</p>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-2'>
                     <Input
                         addonBefore='title'
                         placeholder='Enter your title product'
@@ -171,7 +171,7 @@ const Post = ({ List, setList }) => {
                     />
                     <p style={{ color: 'red' }}>{formik.errors.title}</p>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-2'>
                     <Input
                         addonBefore='price'
                         placeholder='Enter your price product'
@@ -182,7 +182,7 @@ const Post = ({ List, setList }) => {
                     />
                     <p style={{ color: 'red' }}>{formik.errors.price}</p>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-2'>
                     <Input
                         addonBefore='sample'
                         placeholder='Enter your sample product'
@@ -193,7 +193,7 @@ const Post = ({ List, setList }) => {
                     />
                     <p style={{ color: 'red' }}>{formik.errors.sample}</p>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-2'>
                     <Input
                         addonBefore='amount'
                         placeholder='Enter your amount product'
@@ -206,7 +206,7 @@ const Post = ({ List, setList }) => {
                     <p style={{ color: 'red' }}>{formik.errors.amount}</p>
                 </div>
 
-                <div className='mt-5'>
+                <div className='mt-2'>
                     {/* <Button type='primary'>Add Product</Button> */}
                     <button type='submit'>
                         Add

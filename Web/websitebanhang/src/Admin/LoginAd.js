@@ -1,14 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
-// import {auth} from "../firebase-config"
-// import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-const loginAd = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+import {auth} from "../firebase-config"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { message } from 'antd';
+import { Navigate, Outlet, Route, useNavigate } from 'react-router-dom';
+import MainAdmin from './main-admin';
+const LoginAd = () => {
+  const navigate = useNavigate()
+  const [messageApi, contextHolder] = message.useMessage();
+  const [authenticated,setAuthenticated] = useState(
+    localStorage.getItem(localStorage.getItem('authenticated'|| false))
+  )
+  const onFinish =  async (values) => {
+    // console.log('Received values of form: ', values);
+    const email = values.username;
+    const password = values.password
+    try{
+    const user = await signInWithEmailAndPassword(auth,email,password)
+    const tokenResponse = await user.user.getIdToken();
+    console.log(tokenResponse)
+    if(tokenResponse){
+      localStorage.setItem('authenticated',true);
+      navigate('/mainAdmin')
+    }
+    }catch(err){
+      messageApi.open({
+        type: 'warning',
+        content: 'Tài khoản hoặc mật khẩu không đúng',
+      });
+    }
   };
     return (
       <div className='Admin'>
+        {contextHolder}
         <Form
           name="normal_login"
           className="login-form"
@@ -63,4 +88,4 @@ const loginAd = () => {
 
     );
   };
-export default loginAd;
+export default LoginAd;

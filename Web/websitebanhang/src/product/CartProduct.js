@@ -19,52 +19,11 @@ function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, 
   };
     return (
         <div className="CTN">
-            {/* <Row> */}
-            {/* <Col
-                    xl={4}
-                    style={{ padding: '8px' }}
-                >
-                    <div className="category">
-                        <h5 style={{ paddingLeft: '12px' }} >Danh mục sản phẩm</h5>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Tất cả sản phẩm
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo thun
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo sơ mi
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo Khoác
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Áo Hoodie,Áo Len
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Quần Dài,Quần Âu
-                        </a>
-                        <hr style={{ borderStyle: "dashed ", margin: '6px 12px' }}></hr>
-                        <a href="#" className="category-link">
-                            Set quần áo thể thao
-                        </a>
-                    </div>
-                </Col> */}
-            {/* <Col xl={24} > */}
             <Row>
                 {currentItems && currentItems.map((product) => (
                     <CartChild product={product} HandleAddProduct={HandleAddProduct} numberWithCommas={numberWithCommas} handleClickSize={handleClickSize} size={size} />
-
                 ))}
             </Row>
-            {/* </Col> */}
-            {/* </Row> */}
             <div className='Pagination'>
                 <ReactPaginate className='pagination-style'
                     breakLabel="..."

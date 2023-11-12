@@ -1,4 +1,4 @@
-import react from 'react'
+import react, { useEffect } from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 import { Empty, Input, Space } from 'antd';
 import AuthFormLogin from './AuthForm';
@@ -8,6 +8,7 @@ import { AudioOutlined } from '@ant-design/icons';
 import { getAuth, GoogleAuthProvider, signInWithPopup,FacebookAuthProvider  } from "firebase/auth";
 import { auth } from "../firebase-config"
 import SearchFilter from './SearchFilter';
+import UserLogin from '../Admin/UserLogin';
 function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize, getKeywords,keywords,List }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
@@ -33,6 +34,10 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
   const [isOpenForm, setIsOpenForm] = useState(false)
   const hanldeOpenForm = () => {
     setIsOpenForm(prev => !prev)
+  }
+  const[isOpenFormSignup,setIsOpenFormSignup] = useState(false)
+  const hanldeOpenSignup = () => {
+    setIsOpenFormSignup(prev => !prev)
   }
   const { Search } = Input;
 
@@ -92,30 +97,52 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
       console.error("Lỗi đăng nhập:", error);
     }
   }
+  useEffect(()=>{
+    if(userLogin!= ''){
+     localStorage.setItem('UserLogin',JSON.stringify(userLogin))
+    }
+  },[userLogin])
+  useEffect(()=>{
+      const UserLoginLocalStorage = JSON.parse(localStorage.getItem('UserLogin'))
+      if(UserLoginLocalStorage?.name&&UserLoginLocalStorage?.email&&UserLoginLocalStorage?.photo){
+        setUserLogin(...[UserLoginLocalStorage])
+        console.log(UserLoginLocalStorage)
+      }
+  },[])
   // console.log("Thông tin người dùng", userLogin)
+  const handleLogOut = () => {
+    setUserLogin('');
+    localStorage.removeItem('UserLogin');
+  }
   return (
     <div className="Nav" style={{
       position: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'static' : 'fixed',
-      background: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '',
+      background: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '#000' : '#fff',
+      height: location.pathname.includes('/product') || location.pathname.includes('/giohang') ? '' : '50px',
     }}>
       <div className="nav-logo">
         <div style={{
           display: location.pathname.includes('/giohang') ? 'block' : 'none'
         }} className='nav-login'>
-          {userLogin==''?(
-                      <svg style={styleNavaicon} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                    </svg>
-          ):(
+          {userLogin==''?'':(
            <img className='img-login' src={userLogin.photo}/>
           )}
           {userLogin == '' ? (
-            <span style={styleNava} onClick={hanldeOpenForm}>Login</span>
+            <>
+            <span className='AuthFromLogin' style={styleNava} onClick={hanldeOpenForm}>Login</span>
+            {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} handleFacebookLogin={handleFacebookLogin} handleGoogleLogin={handleGoogleLogin} />}
+            <span style={styleNava} onClick={hanldeOpenSignup}>SignUp</span>
+            {isOpenFormSignup && <AuthFormLogin hanldeOpenSignup={hanldeOpenSignup}/>}
+            </>            
           ) : (
+            <span className='nav-user-login'>
             <span style={styleNava} onClick={hanldeOpenForm}>{userLogin.name}</span>
+              <div className='nav-user-login-item'>
+                <p>Setting</p>
+                <p onClick={handleLogOut}>LogOut</p>
+              </div>
+            </span>
           )}
-          {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} handleFacebookLogin={handleFacebookLogin} handleGoogleLogin={handleGoogleLogin} />}
         </div>
         <div style={{
           display: location.pathname.includes('/filter') || location.pathname.includes('/product') || location.pathname.includes('/giohang') ? 'none' : 'block'

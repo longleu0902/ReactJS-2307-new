@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Empty } from 'antd';
+import { Empty,message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { Container } from 'reactstrap';
 function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWithCommas }) {
     const CartList = [...Cart];
+    const [messageApi, contextHolder] = message.useMessage();
     const [TongTien, setTongTien] = useState(0);
     // truyền hàm này qua props
     const thaydoisoluong = (sanpham, sl) => {
@@ -13,7 +14,7 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
         arr[idx].amount = Number(arr[idx].amount) + Number(sl);
         if (arr[idx].amount === 0) {
             arr[idx].amount = 1;
-        }
+        }     
         setCart([...arr])
     }
     const tinhtongtien = () => {
@@ -26,10 +27,17 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
     useEffect(() => {
         tinhtongtien();
     })
+    const warning = () => {
+        messageApi.open({
+          type: 'warning',
+          content: 'Vui lòng đăng nhập để thanh toán',
+        });
+      };
 
 
     return (
         <div className="shoppingcart">
+             {contextHolder}
             <div style={{ width: "100%", height: 50 }} />
             <div className="shoppingcart-title">
                 <h1
@@ -88,7 +96,7 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
                         style={{ height: 50, margin: "24px 0px" }}
                         className="shoppingcart-title"
                     >
-                        <button className="btn-pay">Thanh toán</button>
+                        <button onClick={warning} className="btn-pay">Thanh toán</button>
                     </div>
                     <span style={{ color: "#ccc", fontSize: 12, margin: "12px 24px" }}>
                         Miễn phí đổi trả trong 30 ngày,trả hàng và hoàn tiền

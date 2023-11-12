@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import AuthFormSignUp from "./AuthForm";
 import { NavLink } from "react-router-dom";
 const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin }) => {
     return (
@@ -14,9 +13,6 @@ const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin })
                     <div className="auth-form_container">
                         <div className="auth-form_header">
                             <h3 className="auth-form_heading">Đăng nhập</h3>
-                            <NavLink to='/AuthFormSignUp'>
-                                <span className="auth-form_switch-btn">Đăng kí</span>
-                            </NavLink>
                         </div>
                         <div className="auth-form_form">
                             <div className="auth-form_group">

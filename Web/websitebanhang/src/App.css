@@ -28,6 +28,7 @@ h1{
   justify-content: space-between;
   position: fixed;
   z-index: 2;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 
 }
 .nav-item{
@@ -84,9 +85,36 @@ background-color: #e7e4e4;
 }
 .nav-logo{
   padding: 12px 24px;
-  margin-bottom: 17px;
+  margin-bottom: 5px;
   cursor: pointer;
   display: flex;
+}
+.nav-user-login{
+  position: relative;
+}
+.nav-user-login-item{
+  position: absolute;
+  background-color: #fff;
+  width: 85px;
+  height: 70px;
+  border: 1px solid #000;
+  right: 0px;
+  top: 19px;
+  display: none;
+}
+.nav-user-login:hover .nav-user-login-item{
+  display: block;
+}
+.nav-user-login-item p{
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: flex-end;
+}
+.nav-user-login-item p:hover{
+  background-color: #ccc;
 }
 .search-hidden{
   position: relative;
@@ -102,6 +130,7 @@ background-color: #e7e4e4;
   background-color: #fff;
   overflow: auto; /* Tự động hiển thị thanh cuộn khi cần thiết */
   white-space: nowrap; /* Ngăn ngừa các nội dung xuống dòng */
+  border-radius: 3px;
 }
 .search-filter-item{
   width: 100%;
@@ -186,12 +215,12 @@ background-color: #e7e4e4;
   
 }
 .Header{
-  height: 300px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   /* background-image: linear-gradient(0,#000 , #999); */
-  background-image: url('https://i.pinimg.com/564x/ad/02/e8/ad02e8d826be53f24487731e98678076.jpg');
+  background-image: url('https://i.pinimg.com/564x/c6/0a/e3/c60ae36da9bc177ae261168de46732b7.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -655,6 +684,12 @@ background-color: #3a5a98;
 .auth-form_help-forgot{
  color: #ccc;
 }
+.AuthFromLogin{
+  border-right: 1px solid #fff;
+  margin-right: 12px;
+  padding-right: 12px;
+}
+
 /* btn  */
 .btn{
   min-width: 142px;
