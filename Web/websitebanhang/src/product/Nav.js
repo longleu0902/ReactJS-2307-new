@@ -1,14 +1,16 @@
 import react, { useEffect } from 'react'
 import { Route, Routes, NavLink, BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
-import { Empty, Input, Space } from 'antd';
+import { Empty, Input, Space, message } from 'antd';
 import AuthFormLogin from './AuthForm';
 import AuthFormSignUp from './AuthFormSignUp';
 import { useState } from 'react';
 import { AudioOutlined } from '@ant-design/icons';
 import { getAuth, GoogleAuthProvider, signInWithPopup,FacebookAuthProvider  } from "firebase/auth";
+import { db } from '../firebase-config';
 import { auth } from "../firebase-config"
 import SearchFilter from './SearchFilter';
 import UserLogin from '../Admin/UserLogin';
+import { getDoc, getDocs,collection,query, where } from 'firebase/firestore';
 function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWithCommas, size, setSize, getKeywords,keywords,List }) {
   const CartList = [...Cart];
   // setCart([...Cart,CartList])
@@ -50,7 +52,34 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
     />
   );
   //auth
-  const [userLogin, setUserLogin] = useState('')
+  const [userData, setUserData] = useState('')
+  const [userLogin, setUserLogin] = useState('');
+  const [userNameLogin,setUserNameLogin] = useState('');
+  const [userPasswordLogin,setUserPasswordLogin] = useState('')
+  const [notify,setNotify] = useState(false)
+     const getUserData = async () => {
+        const data = await getDocs(collection(db, 'Users'));
+        const dataUser = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setUserData(dataUser);
+    }
+    useEffect(()=>{
+        getUserData()
+    },[])
+  const handleLoginUser =  () => {
+      const Login = {
+      name:userNameLogin,
+      Password:userPasswordLogin,
+      photo:'https://windows79.com/wp-content/uploads/2021/02/Thay-the-hinh-dai-dien-tai-khoan-nguoi-dung-mac.png'
+    }
+    for(let e of userData){
+      if(e.userName==Login.name&&e.Password==Login.Password){
+         setUserLogin(Login);
+      break;
+      }else {
+        setNotify(true)
+      }
+    }
+  } 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -107,6 +136,8 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
       if(UserLoginLocalStorage?.name&&UserLoginLocalStorage?.email&&UserLoginLocalStorage?.photo){
         setUserLogin(...[UserLoginLocalStorage])
         console.log(UserLoginLocalStorage)
+      }else if(UserLoginLocalStorage?.name){
+        setUserLogin(...[UserLoginLocalStorage])
       }
   },[])
   // console.log("Thông tin người dùng", userLogin)
@@ -125,12 +156,12 @@ function Nav({ Cart, setCart, soluong, removeProduct, removeAllProdcut, numberWi
           display: location.pathname.includes('/giohang') ? 'block' : 'none'
         }} className='nav-login'>
           {userLogin==''?'':(
-           <img className='img-login' src={userLogin.photo}/>
+           <img style={{marginBottom:'8px'}} className='img-login' src={userLogin.photo}/>
           )}
           {userLogin == '' ? (
             <>
             <span className='AuthFromLogin' style={styleNava} onClick={hanldeOpenForm}>Login</span>
-            {isOpenForm && <AuthFormSignUp hanldeOpenForm={hanldeOpenForm} handleFacebookLogin={handleFacebookLogin} handleGoogleLogin={handleGoogleLogin} />}
+            {isOpenForm && <AuthFormSignUp notify={notify} handleLoginUser={handleLoginUser} setUserPasswordLogin={setUserPasswordLogin} setUserNameLogin={setUserNameLogin} hanldeOpenForm={hanldeOpenForm} handleFacebookLogin={handleFacebookLogin} handleGoogleLogin={handleGoogleLogin} />}
             <span style={styleNava} onClick={hanldeOpenSignup}>SignUp</span>
             {isOpenFormSignup && <AuthFormLogin hanldeOpenSignup={hanldeOpenSignup}/>}
             </>            

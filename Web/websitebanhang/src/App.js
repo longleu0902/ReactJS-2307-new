@@ -105,8 +105,10 @@ function App() {
   const handleClickSize = (type) => {
     setSize(type);
   }
+  
   const HandleAddProduct = (product) => {
     const tempCart = [...Cart]
+    console.log(product)
     const proIdx = tempCart.findIndex(it => it.id === product.id && it.size == product.size && it.color == product.color)
     if (proIdx === -1) {
       tempCart.push(product)

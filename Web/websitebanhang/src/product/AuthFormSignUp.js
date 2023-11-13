@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin }) => {
+import { Alert, Space } from 'antd';
+const AuthFormLogin = ({ notify,handleLoginUser,setUserPasswordLogin,setUserNameLogin,hanldeOpenForm,handleGoogleLogin,handleFacebookLogin }) => {
     return (
         // loginform 
         <div className="modal">
@@ -20,6 +21,7 @@ const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin })
                                     type="text"
                                     placeholder="Email của bạn"
                                     className="auth-form_input"
+                                    onChange={(e)=>setUserNameLogin(e.target.value)}
                                 />
                             </div>
                             <div className="auth-form_group">
@@ -27,6 +29,7 @@ const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin })
                                     type="text"
                                     placeholder="Mật khẩu của bạn"
                                     className="auth-form_input"
+                                    onChange={(e)=>setUserPasswordLogin(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -41,11 +44,22 @@ const AuthFormLogin = ({ hanldeOpenForm,handleGoogleLogin,handleFacebookLogin })
                                 </a>
                             </div>
                         </div>
+                        {notify==true?(
+                                <Space
+                                direction="vertical"
+                                style={{
+                                    width: '100%',
+                                    marginTop:'20px'
+                                }}
+                            >
+                                <Alert message="Đăng nhập thành công" type="error" showIcon closable />
+                            </Space>
+                        ):''}
                         <div className="auth-form_controls">
                             <button onClick={() => hanldeOpenForm(false)} className="btn btn-normal auth-form_controls-back">
                                 TRỞ LẠI
                             </button>
-                            <button className="btn btn-normal btn-grey ">ĐĂNG NHẬP</button>
+                            <button onClick={handleLoginUser} className="btn btn-normal btn-grey ">ĐĂNG NHẬP</button>
                         </div>
                     </div>
                     <div className="auth-form_socials">

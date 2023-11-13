@@ -44,18 +44,21 @@ const MainAdmin = ({ List, setList }) => {
                             items={[
                                 {
                                     key: '1',
-                                    icon: <PieChartOutlined onClick={() => handClicktest('')} />,
+                                    icon: <PieChartOutlined/>,
                                     label: 'Dashboard',
+                                    onClick:() => handClicktest(''),
                                 },
                                 {
                                     key: '2',
-                                    icon: <UserOutlined onClick={() => handClicktest('User')} />,
+                                    icon: <UserOutlined/>,
                                     label: 'User',
+                                    onClick:() => handClicktest('User'),
                                 },
                                 {
                                     key: '3',
-                                    icon: <ContainerOutlined onClick={() => handClicktest('Post')} />,
-                                    label: 'Post',
+                                    icon: <ContainerOutlined/>,
+                                    label:'Post',
+                                    onClick:() => handClicktest('Post') ,    
                                 },
                             ]}
                         />

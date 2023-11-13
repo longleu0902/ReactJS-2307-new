@@ -16,7 +16,10 @@ function CartProduct({ List, HandleAddProduct, numberWithCommas, size, setSize, 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % List.length;
     setItemOffset(newOffset);
+    console.log(newOffset)
   };
+  console.log(currentItems)
+
     return (
         <div className="CTN">
             <Row>
