@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Empty,message } from 'antd';
+import { Empty, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
-import { Container } from 'reactstrap';
-function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWithCommas }) {
+import { Dropdown, Space, Alert } from 'antd';
+import { Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { db } from "../firebase-config";
+import { addDoc, collection, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut, numberWithCommas }) {
     const CartList = [...Cart];
+    const [isOpenForm, serIsOpenForm] = useState(false)
     const [messageApi, contextHolder] = message.useMessage();
     const [TongTien, setTongTien] = useState(0);
+    const [adress, setAdress] = useState('')
+    const [phonenumber, setPhoneNumber] = useState('')
     // truyền hàm này qua props
     const thaydoisoluong = (sanpham, sl) => {
         const idx = CartList.indexOf(sanpham);
@@ -14,7 +19,7 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
         arr[idx].amount = Number(arr[idx].amount) + Number(sl);
         if (arr[idx].amount === 0) {
             arr[idx].amount = 1;
-        }     
+        }
         setCart([...arr])
     }
     const tinhtongtien = () => {
@@ -27,17 +32,43 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
     useEffect(() => {
         tinhtongtien();
     })
-    const warning = () => {
-        messageApi.open({
-          type: 'warning',
-          content: 'Vui lòng đăng nhập để thanh toán',
-        });
-      };
+    const handlePay = async () => {
+        const userCart = [...CartList]
+        const UserLogin = JSON.parse(localStorage.getItem('UserLogin'))
+        if (UserLogin&&adress&&phonenumber) {
+            for (let e of userCart) {
+                const shoppingCart = { ...e, userName: UserLogin.name,Adress:adress,phone:phonenumber }
+                try{
+                    const docRef = await addDoc(collection(db, "Cart"), shoppingCart);
+                    console.log("Document written with ID: ", docRef.id);
+                    messageApi.open({
+                        type: 'success',
+                        content: 'Mua hàng thành công',
+                    });
+                }catch(err){
+                    console.log(err)
+                }
+             
+            }
+        } else if(!UserLogin){
+            messageApi.open({
+                type: 'warning',
+                content: 'Vui lòng đăng nhập để thanh toán',
+            });
+        }else{
+
+        }
+
+    };
+    const handlePayClick = () => {
+        serIsOpenForm(prev => !prev)
+
+    }
 
 
     return (
         <div className="shoppingcart">
-             {contextHolder}
+            {contextHolder}
             <div style={{ width: "100%", height: 50 }} />
             <div className="shoppingcart-title">
                 <h1
@@ -62,13 +93,13 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
                         />
                     ))}
                     {CartList == '' ? ''
-                     
-                    :(
-                        <button className='btn-xoa' onClick={removeAllProdcut} style={{ color: "#000", fontFamily: "Times New Roman", borderRadius: '2px', border: '1px solid #ccc', fontSize: '16px', margin: '12px 6px', backgroundColor: "#fff", outline: 'none' }}>
-                        Xoá tất cả
-                    </button>
-                    )}
-              
+
+                        : (
+                            <button className='btn-xoa' onClick={removeAllProdcut} style={{ color: "#000", fontFamily: "Times New Roman", borderRadius: '2px', border: '1px solid #ccc', fontSize: '16px', margin: '12px 6px', backgroundColor: "#fff", outline: 'none' }}>
+                                Xoá tất cả
+                            </button>
+                        )}
+
                 </div>
                 <div className="Pay">
                     <div className="shoppingcart-list-pay">
@@ -96,13 +127,64 @@ function ShoppingCart({ Cart, setCart, removeProduct, removeAllProdcut,numberWit
                         style={{ height: 50, margin: "24px 0px" }}
                         className="shoppingcart-title"
                     >
-                        <button onClick={warning} className="btn-pay">Thanh toán</button>
+                        <button onClick={handlePayClick} className="btn-pay">Thanh toán</button>
                     </div>
                     <span style={{ color: "#ccc", fontSize: 12, margin: "12px 24px" }}>
                         Miễn phí đổi trả trong 30 ngày,trả hàng và hoàn tiền
                     </span>
                 </div>
             </div>
+            {isOpenForm && <div className='formPay' >
+                <div className='formPay-item'>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button onClick={() => handlePayClick(false)} style={{ border: 'none', backgroundColor: '#fff', outline: 'none' }}>X</button>
+                    </div>
+                    {adress == '' ? (
+                        <Space
+                            direction="vertical"
+                            style={{
+                                margin: '6px 24px'
+                            }}
+                        >
+                            <Alert message="Vui lòng nhập đủ các thông tin" type="warning" />
+                        </Space>
+
+                    ) : ''}
+                    <Form style={{ margin: 24 }}>
+                        <FormGroup>
+                            <Label for="exampleEmail">
+                                Địa chỉ
+                            </Label>
+                            <Input
+                                id="exampleEmail"
+                                name="email"
+                                placeholder="Nhập địa chỉ"
+                                type="text"
+                                onChange={(e) => setAdress(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleEmail">
+                                Số điện thoại
+                            </Label>
+                            <Input
+                                id="exampleEmail"
+                                name="email"
+                                placeholder="Nhập số điện thoại"
+                                type="text"
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                        </FormGroup>
+                    </Form>
+                    <div className='formPay-price'>
+                        <div>Tổng số tiền cần thanh toán là :  <span style={{ color: 'red' }}>{numberWithCommas(TongTien)}đ</span></div>
+                        <button className='btn-pay'
+                            onClick={handlePay}
+                            style={{ margin: '12px 0px', width: '100%', padding: '10px' }}
+                        >Tiếp tục thanh toán</button>
+                    </div>
+                </div>
+            </div>}
         </div>
 
     )

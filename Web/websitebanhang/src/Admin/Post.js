@@ -87,7 +87,7 @@ const Post = ({ List, setList }) => {
         <div>
             <Search style={{ marginBottom: '30px' }} placeholder="input search text" onChange={handleChange} enterButton />
             <div style={{ height: "700px", overflow: 'scroll' }} >
-                <Table size="sm">
+                <Table hover size="sm">
                     <thead>
                         <tr>
                             <th>

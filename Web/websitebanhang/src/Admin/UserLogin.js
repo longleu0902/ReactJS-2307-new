@@ -32,7 +32,7 @@ const UserLogin = () => {
   return(
   <Space style={{marginRight:20}} wrap>
     <Dropdown.Button menu={menuProps} placement="bottom" icon={<UserOutlined />}>
-      User
+      admin
     </Dropdown.Button>
   </Space>
 );}

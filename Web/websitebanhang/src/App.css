@@ -101,6 +101,7 @@ background-color: #e7e4e4;
   right: 0px;
   top: 19px;
   display: none;
+  z-index: 1;
 }
 .nav-user-login:hover .nav-user-login-item{
   display: block;
@@ -112,6 +113,7 @@ background-color: #e7e4e4;
   border-radius: 2px;
   display: flex;
   justify-content: flex-end;
+  
 }
 .nav-user-login-item p:hover{
   background-color: #ccc;
@@ -302,6 +304,7 @@ background-color: #e7e4e4;
 }
 .shoppingcart {
   background-color: #f7f7f7;
+  position: relative;
   
 }
 
@@ -356,6 +359,23 @@ background-color: #e7e4e4;
   height: 400px;
   background-color: #fff;
 
+}
+.formPay{
+  position: absolute;
+  background-color: #fff;
+  top: 160px;
+  right: 25px;
+  height: 400px;
+  width: 400px;
+
+}
+.formPay-item{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.formPay-price{
+  margin: 24px;
 }
 
 .shoppingcart-list-pay {
@@ -811,4 +831,49 @@ background-color: #3a5a98;
 }
 .Post-price:hover .update-price{
   display: block;
+}
+
+.User-password{
+  
+}
+.update-password{
+  display: none;
+
+}
+.User-password:hover .update-password{
+  display: block;
+}
+.dashboard{
+  height: 500px;
+}
+.dashboard-item{
+  display: flex;
+  justify-content: space-around;
+  background-color: #f7f6f6;
+  padding: 24px 24px;
+  box-shadow: 2px 2px 5px 0px #ccc;
+}
+.dashboard-item-title{
+  width: 60%;
+}
+.body-chart{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.chart {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px 0px #ccc;
+}
+.bar {
+  flex: 1;
+  background-color:rgb(46, 175, 240);
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  margin: 12px 24px;
+  align-self: flex-end;
+
 }

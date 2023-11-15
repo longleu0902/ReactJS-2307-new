@@ -52,7 +52,7 @@ const AuthFormLogin = ({ notify,handleLoginUser,setUserPasswordLogin,setUserName
                                     marginTop:'20px'
                                 }}
                             >
-                                <Alert message="Đăng nhập thành công" type="error" showIcon closable />
+                                <Alert message="Đăng nhập không thành công" type="error" showIcon closable />
                             </Space>
                         ):''}
                         <div className="auth-form_controls">

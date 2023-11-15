@@ -5,6 +5,7 @@ import {
     UserOutlined,
     PieChartOutlined,
     ContainerOutlined,
+    ShoppingCartOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Avatar, Space } from 'antd';
 import UserLogin from './UserLogin';
@@ -12,6 +13,7 @@ import Dashboard from './Dashboard';
 import User from './User';
 import Post from './Post';
 import { Navigate, Outlet, Route, useNavigate } from 'react-router-dom';
+import { Cart } from './Cart';
 
 const MainAdmin = ({ List, setList }) => {
     const { Header, Sider, Content } = Layout;
@@ -44,21 +46,27 @@ const MainAdmin = ({ List, setList }) => {
                             items={[
                                 {
                                     key: '1',
-                                    icon: <PieChartOutlined/>,
+                                    icon: <PieChartOutlined />,
                                     label: 'Dashboard',
-                                    onClick:() => handClicktest(''),
+                                    onClick: () => handClicktest(''),
                                 },
                                 {
                                     key: '2',
-                                    icon: <UserOutlined/>,
+                                    icon: <UserOutlined />,
                                     label: 'User',
-                                    onClick:() => handClicktest('User'),
+                                    onClick: () => handClicktest('User'),
                                 },
                                 {
                                     key: '3',
-                                    icon: <ContainerOutlined/>,
-                                    label:'Post',
-                                    onClick:() => handClicktest('Post') ,    
+                                    icon: <ContainerOutlined />,
+                                    label: 'Post',
+                                    onClick: () => handClicktest('Post'),
+                                },
+                                {
+                                    key: '4',
+                                    icon: <ShoppingCartOutlined />,
+                                    label: 'Cart',
+                                    onClick: () => handClicktest('Cart'),
                                 },
                             ]}
                         />
@@ -93,13 +101,14 @@ const MainAdmin = ({ List, setList }) => {
                                 background: colorBgContainer,
                             }}
                         >
-                            {filtle === '' ? (<Dashboard />) : ''}
+                            {filtle === '' ? (<Dashboard/>) : ''}
                             {filtle === 'User' ? (<User />) : ''}
                             {filtle === 'Post' ? (<Post List={List} setList={setList} />) : ''}
+                            {filtle === 'Cart' ? (<Cart/>) : ''}
                         </Content>
                     </Layout>
                 </Layout>
-            ) : '' }
+            ) : ''}
         </>
 
     );
